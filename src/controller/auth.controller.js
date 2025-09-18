@@ -61,7 +61,6 @@ const logoutUser = async(req,res)=>{
         await cacheClient.set(token,"blacklisted");
         res.status(200).json({
             msg:"user Logged Out",
-            
         })
 
     } catch (error) {

@@ -13,7 +13,7 @@ const authMiddlware = async (req, res, next) => {
     }
     let isblacklisted = await cacheClient.get(token);
     if(isblacklisted){
-        res.status(401).json({
+       return res.status(401).json({
             msg:"token is blacklisted"
         })
     }
@@ -27,6 +27,7 @@ const authMiddlware = async (req, res, next) => {
     let user = await userModel.findById(decode.id);
     req.user = user;
     next();
+
   } catch (error) {
     res.status(501).json({
       msg: `"error in middlware ${error.message}`,
