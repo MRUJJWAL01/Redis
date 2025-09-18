@@ -1,6 +1,5 @@
 const express = require("express");
 const authRoute = require("./routes/auth.route");
-const { checheIntance } = require("./services/cache.service");
 const cookie = require('cookie-parser');
 
 const app = express();

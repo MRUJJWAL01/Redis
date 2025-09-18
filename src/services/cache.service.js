@@ -1,25 +1,7 @@
-const redis = require("redis");
-
-const checheIntance = redis.createClient({
-    url:process.env.url,
-
-})
-
-const connectChecheService = async()=>{
-    try {
-        let res = await checheIntance.connect();
-        if(res) console.log("redis connection successfully")
-        
-    } catch (error) {
-        console.log(error.message);
-        console.log("error in checheservice connection", error );
-        
-        
-        
-    }
-}
-
-module.exports = {
-    connectChecheService,
-    checheIntance
-};
+const Redis = require("ioredis");
+const cacheClient = new Redis({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+  password: process.env.REDIS_PASSWORD,
+});
+module.exports = cacheClient;

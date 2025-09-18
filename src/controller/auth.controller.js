@@ -1,6 +1,7 @@
 const userModel = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const cacheClient = require("../services/cache.service");
 
 const rgisterUser = async (req, res) => {
   const { name, email, mobile, password } = req.body;
@@ -54,13 +55,14 @@ const loginUser = async (req, res) => {
   }
 };
 const logoutUser = async(req,res)=>{
+    const token = req.cookies.ticket; 
     try {
         res.clearCookie("ticket");
+        await cacheClient.set(token,"blacklisted");
         res.status(200).json({
             msg:"user Logged Out",
             
         })
-        let 
 
     } catch (error) {
         res.status(500).json({

@@ -1,12 +1,21 @@
 require("dotenv").config();
-const app = require("./src/app");
 const connectDB = require("./src/config/db/db");
-const { connectChecheService, checheIntance } = require("./src/services/cache.service");
+const   cacheClient  = require("./src/services/cache.service");
 let prot = process.env.Port ||  3000;
+const app = require("./src/app");
 
 connectDB();
 
-connectChecheService();
+cacheClient.on("connect", () => {
+  console.log("Redis connected successfully");
+});
+
+cacheClient.on("error", (error) => {
+  console.log("error in redis", error);
+});
+
+
+
 
 
 
